@@ -1,0 +1,555 @@
+// Q1.Flatten the Array
+
+// ```jsx
+// -----------------
+// const arr = [
+//   [1, 2],
+//   [3, 4],
+//   [5, 6, [7, 8], 9],
+//   [10, 11, 12],
+// ];
+
+// **const customizedFlat = (arr, depth = 1) => {
+//   return arr.reduce((result, data) => { 
+//     if (Array.isArray(data) && depth > 0) {
+//       return result.concat(customizedFlat(data, depth - 1));
+//     } else {
+//       return result.concat(data);
+//     }
+//   }, []);
+// };**
+
+// console.log(customizedFlat(arr, 2));
+// ---------------------------------------
+// const arr=[
+//     [1,2],
+//     [3,4],
+//     [5,6,[7,8],9],
+//     [10,11,12],
+//     ];
+//     //console.log(arr.flat(2))//2 is depth
+
+//     function customFlat(arr,depth=1){
+//   let result=[];
+//   arr.forEach((data)=>{
+//       if(Array.isArray(data)&& depth>0){
+//           result.push(...customFlat(data,depth-1));
+//       }else result.push(data)
+//   }) 
+//   return result
+//     }
+// console.log(customFlat(arr,2)) 
+
+// --------------------------------
+// const arr=[    [1,2],
+//     [3,4],
+//     [5,6,[7,8],9],
+//     [10,11,12],
+// ];
+
+// const custommizedFlat=(arr, depth=1)=>{
+//     let result = [];
+//     arr.map((data)=>{
+//         if(Array.isArray(data) && depth>0){
+//             result.push(...custommizedFlat(data, depth-1));
+//         } else {
+//             result.push(data);
+//         }
+//     });
+//     return result;
+// };
+
+// console.log(custommizedFlat(arr,2));
+// ```
+
+// Q2 : Difference between map vs forEach: 
+
+// ```jsx
+// const arr=[1,2,5,3,6];
+
+// const mapMethod=arr=>arr.map((data)=>data+2)
+// console.log(mapMethod(arr))
+// console.log(arr)
+// const forEachMethod=arr=>arr.forEach((data,i)=>arr[i]=data+3)
+
+// console.log(forEachMethod(arr))
+// console.log(arr)
+
+// //map method returns new array but it does not modify orginial array we can used  chain  stuff on map we can applyfilter method after map
+// //forEach method does not return it only modify orginial array   and we cannot used like chain because it does not return anything
+// ```
+
+// Q3. Null vs undefined
+
+// ```jsx
+// //null vs undefined
+// //null is actual value but undefined means that varible is declared but not initialize  yet.
+
+// // console.log(a)//a is not defined
+// console.log(typeof null)// object
+// console.log(typeof undefined)//undefined
+
+// console.log(null==undefined)//true because both of the entity without actual type 
+// console.log(null===undefined)//false because check entity as well as actual type
+// ```
+
+// Q4. event delegation
+
+// ```jsx
+// <!DOCTYPE html>
+// <html lang="en">
+//   <head>
+//     <meta charset="UTF-8" />
+//     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+//     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+//     <title>Document</title>
+//   </head>
+//   <body>
+//     <div id="products">
+//       <li id="shoes">shoes</li>
+//       <li id="shoes">shirt</li>
+//       <li id="shoes">wallets</li>
+//     </div>
+//     <script src="index.js"></script>
+//   </body>
+// </html>
+
+// document.querySelector("#products").addEventListener("click", (event) => {
+//   console.log(event.target.tagName);
+
+//   if(event.target.tagName==="LI"){
+//     window.location.href +="#"+event.target.id
+//   }
+// });
+// ```
+
+// Q5.event bubbling 
+
+// ```jsx
+// // Event Bubbling up
+// // Event bubbling goes child to parent.
+
+// let div = document.querySelector("div");
+// let button = document.querySelector("button");
+
+// div.addEventListener("click", function () {
+//   console.log("Div");
+// });
+
+// button.addEventListener("click", function () {
+//   console.log("Button");
+// });
+
+// //Button 
+// //Div
+// // When I click on button the "Button" and "Div" is printing in console.
+
+// // 1st "Button" is printing becasue <button> is the child element and the "Div" is
+// // printing becasuse <div> is the parent element.
+// // Event Bubbling goes child to parent.
+
+// ```
+
+// ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0696eaae-389c-4812-a364-2bb477fb724b/Untitled.png)
+
+// Q6. Event Capturing also known as ****Trickling down****
+
+// ```jsx
+// // Event Capturing also known as ****Trickling****
+
+// // This is similar to event bubbling but the difference is it goes parent to child.
+// // For applying this we have to give third argument to the addEventListener(). 
+// //That argument will be true.
+
+// div.addEventListener("click", function () {
+//   console.log("Div");
+// }, true);
+
+// button.addEventListener("click", function () {
+//   console.log("Button");
+// }, true);
+
+// // If we click on button we can see "Div" is printing 1st because it's the parent element. And then "Button" is printing because it's child element.
+// ```
+
+// Q7.Stop propagation
+
+// ```jsx
+// //Stop propagation
+
+// // When we are clicking the button the button's event is being triggered but 
+// //also the parent's event is being triggered. In some cases we don't want this.
+// // So for stop that we use stopPropagation.
+
+// // When we click on button we get an event.
+// //And on that event we will stop the propagation.
+
+// div.addEventListener("click", function () {
+//   console.log("Div");
+// });
+
+// button.addEventListener("click", function (event) {
+//   event.stopPropagation();
+//   console.log("Button1");
+// });
+
+// button.addEventListener("click", function (event) {
+//   console.log("Button2");
+// })
+
+// // We can see only "Button1" and "Button2" is printing, 
+// //"Div" is not printing b'cze we stop the propagation on button. So the child doesn't 
+// //going to the parent.
+// ```
+
+// Q8 stopImmediatePropagation();
+
+// ```jsx
+// stopImmediatePropagation();
+// // With this we can stop the propagation  immediately.
+
+// button.addEventListener("click", function (event) {
+//   event.stopImmediatePropagation();
+//   console.log("Button1");
+// });
+
+// button.addEventListener("click", function (event) {
+//   console.log("Button2");
+// });
+
+// // In output we can see Only "Button1" is printing , b'cze we stop the propagation 
+// //immediately  after 1st event listener, so it won't go ahead.
+// ```
+
+// Q9:var vs let vs const
+
+// ```jsx
+// //var vs let vs const 
+// // {
+// //     let a="helloo"
+// // }
+// // console.log(a)
+// //1)let and const scope only this two {} "currly braces" but var scope is functional scope
+
+// // const a=5
+// //  a=5;
+// //error  Identifier 'a' has already been declared TypeError: Assignment to constant variable. constant cannot be re-initailize
+
+// // let a=5
+// // let a=5;
+// ////error  Identifier 'a' has already been declared 
+
+// // var a=5
+// // var a=6
+
+// // var a;
+// // //no error
+// // var a;
+// //no error
+// // const a;
+// //error Missing initializer in const declaration
+// console.log(a)
+// ```
+
+// Q10. output based question.
+
+// ```jsx
+// function a(){
+//     for(var i=0;i<3;i++){
+                  
+
+//         setTimeout(function log(){
+//               console.log(i)//
+//         },i*1000)
+//     }
+// }
+// a()//3,3,3 js enginer referning to current value of i
+// -----------------------------------------
+// function a(){
+//     for(let i=0;i<3;i++){
+                  
+
+//         setTimeout(function log(){
+//               console.log(i)//
+//         },i*1000)
+//     }
+// }
+// a()//0 1 2 i has different scope
+// ```
+
+// Q11.Given an array of strings, write a function that returns an object representing the frequency of each character in the array. The keys of the object should be the characters themselves, and the values should be the number of times the character appears in the array.
+
+// ```jsx
+// const strings = ['apple',, 'banana', 'cherry'];
+// // const strings = ['apple'];
+// const getFreq = strings => strings.reduce((acc,curr) => {
+//     const splitStr = curr.split(""); //["a","p","p","l","e"]
+// //   const cache = {} // acc = {a :1,p:1}
+//    splitStr.map(char => { //a  p
+//    console.log(acc)
+//         if(acc[char]) { //acc.a // acc.p //acc.p
+//             acc[char] +=1; 
+//         }
+//         else {
+//             acc[char] =1 //acc.a// acc.p=1
+//         }
+//     })
+//     return acc;
+//     // console.log(splitStr);
+// },{});
+// console.log(getFreq(strings))
+// // Output: { a: 4, p: 2, l: 1, e: 2, b: 1, n: 2, c: 1, h: 1, r: 2, y: 1}
+// ```
+
+// Q12
+
+// Given an array of objects representing students, where each object has a name property and a grades property (an array of numbers), write a function that returns an array of objects representing the students who have an average grade of at least 90.
+
+// ```jsx
+// const students = [
+// { name: 'Alice', grades: [90, 95, 92] },
+// { name: 'Bob', grades: [80, 85, 87] },
+// { name: 'Charlie', grades: [92, 88, 94] },
+// { name: 'David', grades: [75, 80, 82] },
+// ];
+
+// // const [name,grades]=students
+// // console.log(grades)
+// const sum = (acc, curr) => acc+curr;
+
+// const calcAvg = (grades) => grades.reduce(sum,0)/grades.length;
+
+// const findAvgStudent = (students) => 
+//  students
+//   .map(({name, grades})=>({name,averageGrade: calcAvg(grades)}))
+//   .filter(({averageGrade})=>averageGrade>90)
+
+// console.log(findAvgStudent(students))
+
+// // Output: [{ name: 'Alice', averageGrade: 92.33333333333333 }, { name: 'Charlie', averageGrade: 91.33333333333333 }]
+// ```
+
+// Q13 isStringPalindrome 
+
+// ```jsx
+// const isStringPalindrome = str =>{ //level
+//     for ( let i = 0; i < str.length; i++){
+//         if(str[i] !== str[str.length - 1 - i]){ //l!==l f
+//             return false
+//         }
+//     }
+//     return true
+// }
+
+// console.log(isStringPalindrome("level"))
+// ```
+
+// ~~Q14 **The Two Sum Problem in JavaScript**~~
+
+// ```jsx
+// const arr=[2,3,5]
+// const twoSum=(arr,goal)=>{
+//     const comp={};
+// const len=arr.length
+// for(let i=0;i<len;i++){
+//     console.log(comp)
+// if(comp[arr[i]]>=0){
+//     return [comp[arr[i]],i];
+// }
+//     comp[goal-arr[i]]=i;
+// }
+// return []
+// }
+// console.log(twoSum(arr,7))
+// --------------------------------------
+// // The Two Sum Problem in JavaScript
+// const twoSum=(array,goal)=>{
+// for(let i=0;i<array.length;i++){
+//     for(let j=i+1;j<array.length;j++)
+//     if(array[i]+array[j]===goal){
+//         return [i,j]
+//     }
+// }
+// return []
+// }
+// console.log(twoSum(array,6))
+
+// ```
+
+// ~~Q15 Reverse string~~
+
+// ```jsx
+// function reverseString(str) {
+//     var newString = "";
+//     for (var i = str.length - 1; i >= 0; i--) {
+//         newString += str[i];
+//     }
+//     return newString;
+// }
+// reverseString('hello');
+
+// ------------------------
+// function reverseString(str) {
+//   if (str === "")
+//     return "";
+//   else
+//     return reverseString(str.substr(1)) + str.charAt(0);
+// }
+// reverseString("hello");
+// //reverse(ello)+h//olleh
+// //reverse(llo)+e//olle
+// //reverse(lo)+l//oll
+// //reverse(o)+l//ol
+// //reverse("")+o//0
+// //""
+// --------------------------
+// ```
+
+// ~~Q16 reverse  array~~ 
+
+// ```jsx
+// const str = ["apple", "mango", "banana"];
+// const strReverse=str=>{
+
+// const newStr=[];
+//     for (let i=str.length-1;i>=0;i--){
+//         newStr[newStr.length]=(str[i])
+//     }
+//     return newStr
+// }
+
+// console.log(strReverse(str));
+// ----------
+// const str = ["apple", "mango", "banana"];
+
+// const strReverse = (arr) => {
+//   const reversedArr = [];
+//   for(i=arr.length-1;i>=0;i--){
+//       reversedArr.push(arr[i])
+//   }
+//   return reversedArr
+// };
+
+// console.log(strReverse(str));
+// ```
+
+// ~~Q17 reverse array and also their element reverse~~
+
+// ```jsx
+// const str = ["apple", "mango", "banana"];
+// const strReverse=str=>{
+//     const reversedArr=[];
+//     for(i=str.length-1;i>=0;i--){
+//         let newStr=""
+//         for(j=str[i].length-1;j>=0;j--){
+//       newStr+=str[i][j]
+//         }  
+//         reversedArr.push(newStr)
+//     }
+//     return reversedArr
+// }
+
+// const strReverse = (arr) => {
+//   const reversedArr = [];
+//   for (let i = arr.length - 1; i >= 0; i--) {
+//     const str = arr[i];
+//     console.log(str)
+//     let reversedStr = "";
+//     for (let j = str.length - 1; j >= 0; j--) {
+//       reversedStr += str[j];
+//     }
+//     reversedArr.push(reversedStr);
+//   }
+//   return reversedArr;
+// };
+
+// //const reverseStr=str=>str.reverse().map(data=>data.split("").reverse().join(""))
+
+// console.log(strReverse(str)); // ["ananab", "ognam", "elppa"]
+// ```
+
+// ~~Q18 strings = ['apple','banana', 'apple', 'cherry', 'cherry', 'cherry'];~~
+
+// ```jsx
+// function countFrequency(strings) {
+// const frequency ={};
+// for(let str of strings){
+//     if(frequency[str]){
+//         frequency[str]++
+//     }else{
+//         frequency[str]=1
+//     }
+// }
+// const arr=[];
+//     for(let str in frequency){
+//         arr.push({string:str,frequency:frequency[str]})
+//     }
+//     return arr
+// }
+// const strings = ['apple','banana', 'apple', 'cherry', 'cherry', 'cherry'];
+// console.log(countFrequency(strings))
+
+// // Output: [{ string: 'apple', frequency: 2 }, { string: 'banana', frequency: 1 }, 
+// //{ string: 'cherry', frequency: 3 }]
+// ```
+
+// Q19. Write a program to find out the maximum and minimum number in an array by using only one reduce method
+
+// Write a program to find out the maximum and minimum number in an array by using only one reduce method
+
+// Input : [3,5,6,1,14]
+// Output: {min: 1, max: 14}
+
+// ```jsx
+// const Input= [3,5,6,1,14]
+
+// const minMax=arr=>arr.reduce((acc,curr)=>{
+//   if(curr<acc["min"]){
+//      acc["min"]=curr;
+  
+//   }
+//   if(curr>acc["max"]) {
+//      acc["max"]=curr;
+//   }
+
+//   return acc;
+// },{min:arr[0],max:arr[0]});
+
+// console.log(minMax(Input));
+// ```
+
+// Q20.Given an array of strings, write a function that returns an array of objects representing each unique string and its frequency in the original array.
+
+// const strings = ['apple', 'banana', 'apple', 'cherry', 'cherry', 'cherry'];
+
+// Output: [{ string: 'apple', frequency: 2 }, { string: 'banana', frequency: 1 }, { string: 'cherry', frequency: 3 }]
+
+// ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e7a4007c-c2d3-4f27-8870-de29d89c6d92/Untitled.png)
+
+// ```jsx
+// const strings = ['apple', 'banana', 'apple', 'cherry', 'cherry', 'cherry'];
+
+// function countFrequency(strings) {
+//   const frequency = {};
+
+//   // Count the frequency of each string
+//   for (let str of strings) {
+//     if (frequency[str]) {
+//       frequency[str]++;
+//     } else {
+//       frequency[str] = 1;
+//     }
+//   }
+
+// console.log(frequency)
+//   // Convert the frequency object to an array of objects
+//   const result = [];
+//   for (let str in frequency) {
+//     result.push({ string: str, frequency: frequency[str] });
+//   }
+
+//   return result;
+// }
+
+// console.log( countFrequency(strings))
+// ```
