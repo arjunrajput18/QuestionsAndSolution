@@ -15,7 +15,7 @@
 //         setTimeout(()=>{console.log("Greetings")},2000)
 //     }
     
-//     delayedGreeting();
+
     
 //     delayedGreeting();
 //     // Hello, welcome to my portfolio!
