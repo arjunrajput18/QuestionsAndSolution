@@ -360,4 +360,12 @@
     
 //     // Output on the DOM should be: Welcome!, Roshan from neoG Camp
     
-//     
+//     let a=[1,2,1,3,44,55,44,55]
+
+// let b={};
+
+// for(let i of a){
+// b[i]=true
+// }
+// let z=Object.keys(b)
+// console.log(z)
