@@ -242,46 +242,275 @@ const fakeFetch4 = (url) => {
 // Use this URL - https://example.com/photo to make a fake fetch call and show an image on the DOM using the photo link received in the response. Use HTML, CSS & JS template in REPL or Vanilla template in CodeSandbox for this question.
 
 const fakeFetch5 = (url) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (url === "https://example.com/photo") {
-          resolve({
-            status: 200,
-            data: {
-              photo: {
-                link: "https://source.unsplash.com/featured/300x201",
-                title: "Random Image"
-              }
-            }
-          });
-        } else {
-          reject({
-            status: 404,
-            message: "No order found"
-          });
-        }
-      }, 2000);
-    });
-  };
-  
-  // your code here
-  
-  const imgDom = async () => {
-    try {
-      const {
-        status,
-        data: {
-          photo: { link }
-        }
-      } = await fakeFetch5("https://example.com/photo");
-  
-      if (status === 200) {
-        outputBox.innerHTML = `<img src=${link}>`;
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (url === "https://example.com/photo") {
+        resolve({
+          status: 200,
+          data: {
+            photo: {
+              link: "https://source.unsplash.com/featured/300x201",
+              title: "Random Image",
+            },
+          },
+        });
+      } else {
+        reject({
+          status: 404,
+          message: "No order found",
+        });
       }
-    } catch ({ status, message }) {
-      outputBox.innerHTML = `status:${status} message: ${message}`;
+    }, 2000);
+  });
+};
+
+// your code here
+
+//   fakeFetch5("https://example.com/photo").then(
+//       ({status,data: {photo: { link }}})=>{
+//         if(status===200){
+//             outputBox.innerHTML=`<img src=${link}/>`
+//         }
+//     }
+//   ).catch(({status,message})=>{
+
+//   outputBox.innerHTML= ` status:${status} message:${message}`
+// })
+
+//   //
+//   const imgDom = async () => {
+//     try {
+//       const {
+//         status,
+//         data: {
+//           photo: { link }
+//         }
+//       } = await fakeFetch5("https://example.com/photo");
+
+//       if (status === 200) {
+//         outputBox.innerHTML = `<img src=${link}>`;
+//       }
+//     } catch ({ status, message }) {
+//       outputBox.innerHTML = `status:${status} message: ${message}`;
+//     }
+//   };
+
+//   imgDom();
+// Output: an image on the DOM
+
+//   Use this URL - https://example.com/api/productlist to make a fake fetch call and print the total price of all the products. A fakeFetch has been provided. Use HTML, CSS & JS template in REPL or Vanilla template in CodeSandbox for this question.
+const fakeFetch6 = (url) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (url === "https://example.com/api/productlist") {
+        resolve({
+          status: 200,
+          message: "Success",
+          data: [
+            { itemName: "Shoes", price: 100, quantity: 2 },
+            { itemName: "Hat", price: 350, quantity: 1 },
+            { itemName: "Tshirt", price: 410, quantity: 5 },
+          ],
+        });
+      } else {
+        reject({
+          status: 404,
+          message: "Items list not found.",
+        });
+      }
+    }, 2000);
+  });
+};
+// Your Code here
+
+// Output on the DOM should be:
+// Total: INR 2600
+
+// fakeFetch6("https://example.com/api/productlist").then(
+// ({status,message,data})=>{
+//     if(status===200){
+//         outputBox.innerText=`Total : INR ${data.reduce((acc,{price,quantity})=>acc+price*quantity,0)}`
+//     }
+// }
+// ).catch(
+//     ({status,message})=>{
+//         outputBox.innerText=`status:${status} message:${message}`
+//     }
+// )
+
+// const totalPrice=async ()=>{
+//  try{ const {status,message,data}=await fakeFetch6("https://example.com/api/productlist")
+//  if(status===200){
+//      outputBox.innerText=`Total INR ${data.reduce((acc,{price,quantity})=>acc+price*quantity,0)}`
+//  }}
+
+//  catch({status,message}){
+//     outputBox.innerText=`status :${status} message:${message}`
+//  }
+
+// }
+
+// totalPrice()
+
+// Use this URL - https://example.com/api/users to make a fake fetch call and handle errors if any. Show a proper message to the user on the DOM (Oops! Unexpected Error. Please try again.), as per the status received from the server. The error should be displayed in red colour. A fakeFetch has been provided. Use HTML, CSS & JS template in REPL or Vanilla template in CodeSandbox for this question.
+const fakeFetch7 = (url) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (url === "https://example.com/api/users") {
+        reject({
+          status: 500,
+          message: "Internal Server Error",
+        });
+      } else {
+        resolve({
+          status: 200,
+          data: {
+            message: "Success",
+          },
+        });
+      }
+    }, 2000);
+  });
+};
+
+// Your Code here
+
+// Output on the DOM should be (in red color):
+// Oops. Unexpected Error. Please try again.
+
+//  fakeFetch7("https://example.com/api/users").then(
+//     ({status,data:{message}})=>{
+//         outputBox.innerText=`status:${status} message:${message}`
+//     }
+//  ).catch(
+//     ({status,message})=>
+//     {
+//         // outputBox.style.color="red"
+//         outputBox.innerHTML=`<p style="color:red">Oops. Unexpected Error. Please try again</p>`
+//     }
+
+//  )
+
+// const showMsg = async () => {
+//   try {
+//     const {
+//       status,
+//       data: { message },
+//     } = await fakeFetch7("https://example.com/api/users");
+//     outputBox.innerHTML = `status:${status} message:${message}`;
+//   } catch ({ message, status }) {
+//     outputBox.innerHTML = `<p style="color:red">Oops. Unexpected Error. Please try again</p>`;
+//   }
+// };
+
+// showMsg()
+
+// Use this URL - https://example.com/api/allbooks to make a fake fetch call and handle errors if any. Show a proper message to the user on the DOM (Bad Request! Requested size too large.), as per the status received from the server. A fakeFetch has been provided. Use HTML, CSS & JS template in REPL or Vanilla template in CodeSandbox for this question.
+const fakeFetch8 = (url) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (url === "https://example.com/api/allbooks") {
+        reject({
+          status: 400,
+          message: "Bad Request",
+        });
+      } else {
+        resolve({
+          status: 200,
+          data: {
+            message: "Success",
+          },
+        });
+      }
+    }, 2000);
+  });
+};
+
+// Your Code here
+// Output on the DOM should be:
+// Bad Request! Requested size too large.
+
+//   fakeFetch8("https://example.com/api/allbooks").then(
+//     ({status,data:{message}})=>{
+//         outputBox.innerText=`message ${message}`
+//     }
+//   ).catch(
+// ({status,message})=>{
+//     // console.log(message)
+//     outputBox.innerText=`${message} size too large`
+// }
+//   )
+
+// const showMsg1 = async () => {
+//   try {
+//     const {
+//       status,
+//       data: { message },
+//     } = await fakeFetch8("https://example.com/api/allbooks");
+//     outputBox.innerHTML = `message ${message}`;
+//   }
+//   catch ({ status, message }) {
+//     // console.log(status);
+//     if (status === 400) {
+//       outputBox.innerHTML = `${message} size too large`;
+//     }
+//   }
+// };
+
+// showMsg1();
+
+// Use this URL - https://example.com/welcome to make a fake fetch call and display a welcome message to the user on the DOM. Welcome message (if provided) should be used else the default message of Welcome to the servershould be shown. Message should be only shown if the user is logged in. A fakeFetch has been provided. Use HTML, CSS & JS template in REPL or Vanilla template in CodeSandbox for this question.
+
+const fakeFetch9 = (url) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (!(url === "https://example.com/welcome")) {
+        reject({
+          status: 511,
+          message: "Network auth required",
+        });
+      } else {
+        resolve({
+          status: 200,
+          data: {
+            logged: true,
+            // message:"hiii "
+          },
+        });
+      }
+    }, 2000);
+  });
+};
+
+// your code here
+// Output: As per the response from server
+
+// fakeFetch9("https://example.com/welcome").then(
+//   ({ status, data: { logged,message } }) => {
+//     if (status === 200) {
+//       if (logged) {
+//         // if (message??undefined) {
+//         //     outputBox.innerText = `you are logged IN`;
+//         // } else {
+//         //     outputBox.innerText = `message:- ${message}`;
+//         // }
+//     outputBox.innerHTML=message??"You are logged In"  //nullish collision
+//     }
+//     }
+//   }
+// ).catch(({ status, message }) => (output.innerText =` ${status} ${message}`));;
+
+const showMsg3=async ()=>{
+try{
+    const {status,data:{logged,message}}= await fakeFetch9("https://example.com/welcome")
+    if(status===200){
+        if(logged){
+            outputBox.innerHTML=message??"You are logged In"
+        }
     }
-  };
-  
-  imgDom();
-  // Output: an image on the DOM
+} catch({status,message}){
+    output.innerText = `status: ${status} message: ${message}`
+}  
+}
+
+showMsg3()
